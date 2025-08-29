@@ -19,8 +19,8 @@ helm dependency update
 echo "Building Helm chart..."
 helm package --destination ../ .
 echo "Cleanup..."
-rm Chart.lock
-mv charts tmp_charts
+if [[ -e Chart.lock ]]; then rm Chart.lock; fi
+if [[ -d charts ]]; then mv charts tmp_charts; fi
 
 git config user.name "$GITHUB_ACTOR"
 git config user.email "${GITHUB_ACTOR}@bots.github.com"
