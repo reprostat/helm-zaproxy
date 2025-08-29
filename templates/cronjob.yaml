@@ -1,0 +1,48 @@
+{{- range $i, $url := .Values.targetUrl }}
+{{- $jobName := regexReplaceAll "https://([^./]+).*" $url "$1" | trunc 63 | trimSuffix "-" -}}
+apiVersion: batch/v1
+kind: CronJob
+metadata:
+  name: {{ include "zaproxy.fullname" $ }}-{{ $jobName }}
+  labels:
+    app.kubernetes.io/component: {{ include "zaproxy.fullname" $ }}
+    release: {{ $.Release.Name }}
+spec:
+  schedule: {{ $.Values.schedule | quote }}
+  timeZone: {{ $.Values.timeZone | quote }}
+  successfulJobsHistoryLimit: 4
+  failedJobsHistoryLimit: 1
+  concurrencyPolicy: Forbid
+  jobTemplate:
+    spec:
+      backoffLimit: 0
+      template:
+        spec:
+          containers:
+            - name: zaproxy
+              image: {{ $.Values.image.repository }}:{{ default $.Chart.AppVersion $.Values.image.tag }}
+              imagePullPolicy: {{ $.Values.image.pullPolicy | quote }}
+              command:
+                - /bin/sh
+                - -c
+                - |
+                  DATE=$(date +%Y%m%d)
+                  zap-full-scan.py \
+                    -t {{ $url }} \
+                    -c /zap/config/zap.cfg \
+                    -r /zap/wrk/{{ $jobName }}-$DATE.html \
+                    -J /zap/wrk/{{ $jobName }}-$DATE.json || true
+              volumeMounts:
+                - mountPath: /zap/config
+                  name: config
+                - mountPath: /zap/wrk
+                  name: data
+          restartPolicy: Never
+          volumes:
+            - name: config
+              configMap:
+                name: {{ include "zaproxy.fullname" $ }}-config
+            - name: data
+              persistentVolumeClaim:
+                claimName: {{ include "zaproxy.fullname" $ }}-data
+{{- end }}

@@ -1,0 +1,25 @@
+nameOverride: ""
+
+image:
+  repository: ghcr.io/zaproxy/zaproxy
+  tag: ""
+  pullPolicy: IfNotPresent  
+
+## Default schedule is every Sunday at midnight (London time)
+##
+schedule: "0 0 * * 0"
+timeZone: Europe/London
+
+## Set to true to create and run a job immediately after deployment
+##
+runOnStartup: false
+
+resources:
+  storage:
+    storageClassName: ""
+    size: 50Mi
+
+config: |
+    10049	IGNORE	(Non-Storable Content)
+
+targetUrl: []

@@ -1,0 +1,14 @@
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: {{ include "zaproxy.fullname" . }}-data
+  labels:
+    app.kubernetes.io/component: {{ include "zaproxy.fullname" . }}
+    release: {{ .Release.Name }}
+spec:
+  accessModes:
+    - ReadWriteMany
+  storageClassName: {{ .Values.resources.storage.storageClassName }}
+  resources:
+    requests:
+      storage: {{ .Values.resources.storage.size }}
