@@ -1,4 +1,4 @@
-{{- range $i, $url := .Values.targetUrl }}
+{{- range $url := .Values.targetUrl }}
 {{- $jobName := regexReplaceAll "https://([^./]+).*" $url "$1" | trunc 63 | trimSuffix "-" -}}
 apiVersion: batch/v1
 kind: CronJob
@@ -45,4 +45,5 @@ spec:
             - name: data
               persistentVolumeClaim:
                 claimName: {{ include "zaproxy.fullname" $ }}-data
+---
 {{- end }}
