@@ -1,7 +1,7 @@
 apiVersion: v2
 name: zaproxy
 description: Helm chart for ZAP Proxy CronJob
-version: 0.1.1
+version: 0.2.0
 type: application
 
 appVersion: 2.16.1

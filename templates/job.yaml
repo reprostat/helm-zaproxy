@@ -1,4 +1,4 @@
-{{- if .Values.runOnStartup }}
+{{- if .Values.initialJob.enabled }}
 {{- range $url := .Values.targetUrl }}
 {{- $jobName := regexReplaceAll "https://([^./]+).*" $url "$1" | trunc 63 | trimSuffix "-" -}}
 apiVersion: batch/v1
@@ -10,6 +10,9 @@ metadata:
     release: {{ $.Release.Name }}
 spec:
   backoffLimit: 0
+  {{- if $.Values.initialJob.cleanupAfterDays }}
+  ttlSecondsAfterFinished: {{ mul $.Values.initialJob.cleanupAfterDays 86400 }}
+  {{- end }}
   template:
     spec:
       containers:
