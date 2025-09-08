@@ -7,12 +7,17 @@ image:
 
 ## Default schedule is every Sunday at midnight (London time)
 ##
-schedule: "0 0 * * 0"
-timeZone: Europe/London
+cronJob:
+  schedule: "0 0 * * 0"
+  timeZone: Europe/London
+  keepSuccessfulJobs: 4
+  keepFailedJobs: 1
 
-## Set to true to create and run a job immediately after deployment
+## Create and run a job immediately after deployment
 ##
-runOnStartup: false
+initialJob:
+  enabled: true
+  cleanupAfterDays: 1
 
 resources:
   storage:
