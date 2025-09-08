@@ -3,7 +3,17 @@ entries:
   zaproxy:
   - apiVersion: v2
     appVersion: 2.16.1
-    created: "2025-08-29T14:23:28.662631155Z"
+    created: "2025-09-08T09:35:15.880863105Z"
+    description: Helm chart for ZAP Proxy CronJob
+    digest: 93056ca2f9d94d112f3451bde4bddf9c284a27f074bd2e3c53a59bd1a1c4cbb3
+    name: zaproxy
+    type: application
+    urls:
+    - zaproxy-0.2.0.tgz
+    version: 0.2.0
+  - apiVersion: v2
+    appVersion: 2.16.1
+    created: "2025-09-08T09:35:15.880469222Z"
     description: Helm chart for ZAP Proxy CronJob
     digest: 8fe76b84f2b4d25d92b26c494e60f3523b5131e32551e3a9fb3a0fbdfb6b293a
     name: zaproxy
@@ -13,7 +23,7 @@ entries:
     version: 0.1.1
   - apiVersion: v2
     appVersion: 2.16.1
-    created: "2025-08-29T14:23:28.662364769Z"
+    created: "2025-09-08T09:35:15.880111587Z"
     description: Helm chart for ZAP Proxy CronJob
     digest: 24f1d4dcaeb75a6a28985bc282ba0e0e94a351124032945e8f8dc52064ea717c
     name: zaproxy
@@ -21,4 +31,4 @@ entries:
     urls:
     - zaproxy-0.1.0.tgz
     version: 0.1.0
-generated: "2025-08-29T14:23:28.661987005Z"
+generated: "2025-09-08T09:35:15.879579416Z"
