@@ -8,7 +8,7 @@ metadata:
 spec:
   accessModes:
     - ReadWriteMany
-  storageClassName: {{ .Values.resources.storage.storageClassName }}
+  storageClassName: {{ .Values.persistence.storage.storageClassName }}
   resources:
     requests:
-      storage: {{ .Values.resources.storage.size }}
+      storage: {{ .Values.persistence.storage.size }}

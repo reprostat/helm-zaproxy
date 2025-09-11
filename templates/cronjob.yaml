@@ -22,6 +22,13 @@ spec:
             - name: zaproxy
               image: {{ $.Values.image.repository }}:{{ default $.Chart.AppVersion $.Values.image.tag }}
               imagePullPolicy: {{ $.Values.image.pullPolicy | quote }}
+              resources:
+                requests:
+                  cpu: {{ $.Values.resources.requests.cpu }}
+                  memory: {{ $.Values.resources.requests.memory }}
+                limits:
+                  cpu: {{ $.Values.resources.limits.cpu }}
+                  memory: {{ $.Values.resources.limits.memory }}
               command:
                 - /bin/sh
                 - -c

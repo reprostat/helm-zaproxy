@@ -20,6 +20,14 @@ initialJob:
   cleanupAfterDays: 1
 
 resources:
+  requests:
+    cpu: 2
+    memory: 3Gi
+  limits:
+    cpu: 2.5
+    memory: 4Gi
+
+persistence:
   storage:
     storageClassName: ""
     size: 50Mi
