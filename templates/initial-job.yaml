@@ -4,15 +4,16 @@
 apiVersion: batch/v1
 kind: Job
 metadata:
-  name: {{ include "zaproxy.fullname" $ }}-{{ $jobName }}
+  annotations:
+    "helm.sh/hook": post-upgrade
+    "helm.sh/hook-delete-policy": hook-succeeded,before-hook-creation
+  name: {{ include "zaproxy.fullname" $ }}-{{ $jobName }}-initial
   labels:
     app.kubernetes.io/component: {{ include "zaproxy.fullname" $ }}
     release: {{ $.Release.Name }}
 spec:
-  backoffLimit: 0
-  {{- if $.Values.initialJob.cleanupAfterDays }}
-  ttlSecondsAfterFinished: {{ mul $.Values.initialJob.cleanupAfterDays 86400 }}
-  {{- end }}
+  backoffLimit: 1
+  activeDeadlineSeconds: {{ $.Values.cronJob.deadlineSeconds }}
   template:
     spec:
       containers:

@@ -15,7 +15,8 @@ spec:
   concurrencyPolicy: Forbid
   jobTemplate:
     spec:
-      backoffLimit: 0
+      backoffLimit: 1
+      activeDeadlineSeconds: {{ $.Values.cronJob.deadlineSeconds }}
       template:
         spec:
           containers:
